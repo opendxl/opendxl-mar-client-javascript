@@ -27,20 +27,22 @@ client.connect(function () {
   marClient.search([hostInfoProjection], null,
     function (searchError, resultContext) {
       if (resultContext && resultContext.hasResults) {
-        resultContext.getResults(function (resultError, searchResult) {
-          client.destroy()
-          if (resultError) {
-            console.log(resultError.message)
-          } else {
-            var items = searchResult.items
-            if (items) {
-              console.log('Results:')
-              items.forEach(function (item) {
-                console.log('    ' + item.output['HostInfo|ip_address'])
-              })
+        resultContext.getResults(
+          function (resultError, searchResult) {
+            client.destroy()
+            if (resultError) {
+              console.log(resultError.message)
+            } else {
+              var items = searchResult.items
+              if (items) {
+                console.log('Results:')
+                items.forEach(function (item) {
+                  console.log('    ' + item.output['HostInfo|ip_address'])
+                })
+              }
             }
-          }
-        }, 0, 10)
+          },
+          {limit: 10})
       } else {
         client.destroy()
         if (searchError) {

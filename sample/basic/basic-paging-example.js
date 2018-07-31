@@ -72,11 +72,13 @@ client.connect(function () {
                 }
               }
             },
-            pageNumber * PAGE_SIZE,
-            PAGE_SIZE,
-            null,
-            'Processes|name',
-            SortConstants.ASC)
+            {
+              offset: pageNumber * PAGE_SIZE,
+              limit: PAGE_SIZE,
+              sortBy: 'Processes|name',
+              sortDirection: SortConstants.ASC
+            }
+          )
         }
         displayPageResults(0)
       } else {
