@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: ConditionConstants</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: ConditionConstants</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Constants that are used to describe a <code>condition</code>.</p>
+<p>The following statement:</p>
+<pre class="prettyprint source lang-js"><code>{
+  or: [{
+    and: [{
+      name: 'HostInfo',
+      output: 'ip_address',
+      op: 'EQUALS',
+      value: '192.168.1.1'
+    }]
+  }]
+}</code></pre><p>Can be rewritten to use <code>ConditionConstants</code> as follows:</p>
+<pre class="prettyprint source lang-js"><code>{
+  ConditionConstants.OR: [{
+    ConditionConstants.AND: [{
+      ConditionConstants.COND_NAME: 'HostInfo',
+      ConditionConstants.COND_OUTPUT: 'ip_address',
+      ConditionConstants.COND_OP: 'EQUALS',
+      ConditionConstants.COND_VALUE: '192.168.1.1'
+    }]
+  }]
+}</code></pre></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".AND"><span class="type-signature">(static) </span>AND<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'And' condition</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".COND_NAME"><span class="type-signature">(static) </span>COND_NAME<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Condition name</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".COND_OP"><span class="type-signature">(static) </span>COND_OP<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Condition operation</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".COND_OUTPUT"><span class="type-signature">(static) </span>COND_OUTPUT<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Condition output</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".COND_VALUE"><span class="type-signature">(static) </span>COND_VALUE<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Condition value</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".OR"><span class="type-signature">(static) </span>OR<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Or' condition</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_condition-constants.js.html">constants/condition-constants.js</a>, <a href="constants_condition-constants.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">installation</a></li><li><a href="tutorial-samples.html">samples</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

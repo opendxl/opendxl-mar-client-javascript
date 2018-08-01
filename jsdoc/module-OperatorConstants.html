@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: OperatorConstants</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: OperatorConstants</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Constants that describe the <code>operator</code> to use within a
+<code>condition</code>.</p>
+<p>The following statement:</p>
+<pre class="prettyprint source lang-js"><code>{
+  or: [{
+    and: [{
+      name: 'HostInfo',
+      output: 'ip_address',
+      op: 'EQUALS',
+      value: '192.168.1.1'
+    }]
+  }]
+}</code></pre><p>Can be rewritten to use <code>OperatorConstants</code> as follows:</p>
+<pre class="prettyprint source lang-js"><code>{
+  or: [{
+    and: [{
+      name: 'HostInfo',
+      output: 'ip_address',
+      op: OperatorConstants.EQUALS,
+      value: '192.168.1.1'
+    }]
+  }]
+}</code></pre></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".AFTER"><span class="type-signature">(static) </span>AFTER<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'After' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".BEFORE"><span class="type-signature">(static) </span>BEFORE<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Before' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".CONTAINS"><span class="type-signature">(static) </span>CONTAINS<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Contains' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".ENDS_WITH"><span class="type-signature">(static) </span>ENDS_WITH<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Ends with' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".EQUALS"><span class="type-signature">(static) </span>EQUALS<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Equals' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".GREATER_EQUAL_THAN"><span class="type-signature">(static) </span>GREATER_EQUAL_THAN<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Greater than or equal to' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".GREATER_THAN"><span class="type-signature">(static) </span>GREATER_THAN<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Greater than' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line47">line 47</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".LESS_EQUAL_THAN"><span class="type-signature">(static) </span>LESS_EQUAL_THAN<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Less than or equal to' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".LESS_THAN"><span class="type-signature">(static) </span>LESS_THAN<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Less than' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".STARTS_WITH"><span class="type-signature">(static) </span>STARTS_WITH<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>'Starts with' operator</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_operator-constants.js.html">constants/operator-constants.js</a>, <a href="constants_operator-constants.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">installation</a></li><li><a href="tutorial-samples.html">samples</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

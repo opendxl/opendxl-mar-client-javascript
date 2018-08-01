@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: MarClient</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: MarClient</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>MarClient<span class="signature">(dxlClient)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>This client provides a high level wrapper for communicating with
+the McAfee Active Response (MAR) DXL service.</p>
+<p>The purpose of this client is to allow the user to perform MAR searches
+without having to focus on lower-level details such as MAR-specific DXL
+topics and message formats.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="MarClient"><span class="type-signature"></span>new MarClient<span class="signature">(dxlClient)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dxlClient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="external-DxlClient.html">external:DxlClient</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The DXL client to use for
+  communication with the MAR DXL service.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mar-client.js.html">mar-client.js</a>, <a href="mar-client.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="pollInterval"><span class="type-signature"></span>pollInterval<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount of time to wait (in seconds) before
+  polling the MAR server for results. Defaults to <code>5</code>. If a value less than
+  <code>5</code> is specified, a <code>RangeError</code> is thrown.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mar-client.js.html">mar-client.js</a>, <a href="mar-client.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="search"><span class="type-signature"></span>search<span class="signature">(projections, conditions, callback)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Executes a search via McAfee Active Response.</p>
+<p>Once the search has completed a <a href="ResultsContext.html">ResultsContext</a> object is returned
+which is used to access the search results.</p>
+<p><strong>Client Authorization</strong></p>
+<p>The OpenDXL Python client invoking this method must have permission
+to send messages to the <code>/mcafee/mar/service/api/search</code> topic.</p>
+<p>See the following page for details on authorizing a client to
+perform MAR searches:</p>
+<p><a href="https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html">https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html</a></p>
+<p>Execution of a MAR search requires an array of <code>projections</code> and an
+optional object containing the search <code>conditions</code>.</p>
+<p><strong>Projections</strong></p>
+<p><code>Projections</code> are used to describe the information to collect in the search.
+Each <code>projection</code> consists of a <code>collector</code> name and a list of <code>output names</code>
+from the <code>collector</code>. For example, the <code>Processes</code> collector includes
+<code>output names</code> such as <code>name</code>, <code>sha1</code>, <code>md5</code>, etc.</p>
+<p>For a complete list of <code>collectors</code> and their associated <code>output names</code> refer
+to the <code>McAfee Active Response Product Guide</code>.</p>
+<p>Each <code>projection</code> specified must contain the following fields:</p>
+<ul>
+<li><code>name</code>: The name of the <code>collector</code> to project</li>
+<li><code>outputs</code>: An array of <code>output names</code> of the <code>collector</code> to project</li>
+</ul>
+<p>The JavaScript array below is equivalent to the <code>projections</code> within the
+following textual search:</p>
+<p><code>Processes name, id where Processes name equals &quot;csrss&quot; and Processes name
+contains &quot;exe&quot; or Processes size not greater than 200</code></p>
+<pre class="prettyprint source lang-js"><code>[{
+  name: &quot;Processes&quot;,
+  outputs: [&quot;name&quot;, &quot;id&quot;]
+}]</code></pre><p><strong>Conditions</strong></p>
+<p><code>Conditions</code> are used to restrict which items are included in the search
+results. For example, a search that collects process-related information
+could be limited to those processes which match a specified name.</p>
+<p>A condition has a fixed structure starting with an <code>or</code>
+conditional operator and allowing only one level of <code>and</code>
+conditions.</p>
+<p>The JavaScript object below is equivalent to the <code>conditions</code> within the
+following textual search:</p>
+<p><code>Processes name, id where Processes name equals &quot;csrss&quot; and
+Processes name contains &quot;exe&quot; or Processes size not greater than
+200</code></p>
+<pre class="prettyprint source lang-js"><code>{
+  or: [{
+    and: [{
+      name: 'Processes',
+      output: 'name',
+      op: 'EQUALS',
+      value: 'csrss'
+    },
+    {
+      name: 'Processes',
+      output: 'name',
+      op: 'CONTAINS',
+      value: 'exe'
+    }]
+  },
+  {
+    and: [{
+      name: 'Processes',
+      output: 'size',
+      op: 'GREATER_THAN',
+      value: '200',
+      negated: 'true'
+    }]
+  }]
+}</code></pre><p>The following fields are used for each <code>condition</code>:</p>
+<ul>
+<li><code>name</code>: The name of the <code>collector</code> from which to retrieve a value for
+comparison</li>
+<li><code>output</code>: The <code>output name</code> from the <code>collector</code> that selects the specific
+value to use for comparison</li>
+<li><code>op</code>: The comparison operator</li>
+<li><code>value</code>: The value to compare with the value from the collector</li>
+<li><code>negated</code>: (optional) Indicates if the comparison is negated</li>
+</ul>
+<p>The operators available for each value data type are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>NUMBER</th>
+<th>STRING</th>
+<th>BOOLEAN</th>
+<th>DATE</th>
+<th>IPV4IPV6</th>
+<th>REG_STR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GREATER_EQUAL_THAN</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GREATER_THAN</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>LESS_EQUAL_THAN</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>LESS_THAN</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EQUALS</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x <code>(*)</code></td>
+</tr>
+<tr>
+<td>CONTAINS</td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>x <code>(*)</code></td>
+</tr>
+<tr>
+<td>STARTS_WITH</td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x <code>(*)</code></td>
+</tr>
+<tr>
+<td>ENDS_WITH</td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x <code>(*)</code></td>
+</tr>
+<tr>
+<td>BEFORE</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AFTER</td>
+<td></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>(*)</code> Negated field is not supported in those cases.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>projections</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An object containing the <code>projections</code>
+  for the search.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>conditions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An object containing the <code>conditions</code> for the
+  search.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Callback function to invoke with the results
+  of the search. If an error occurs when performing the lookup, the first
+  parameter supplied to the callback contains an <code>Error</code> object with
+  failure details. On successful completion of the search, a
+  <a href="ResultsContext.html">ResultsContext</a> object is provided as the second parameter to the
+  callback.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mar-client.js.html">mar-client.js</a>, <a href="mar-client.js.html#line283">line 283</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Create the client
+var client = new dxl.Client(config)
+
+// Connect to the fabric, supplying a callback function which is invoked
+// when the connection has been established
+client.connect(function () {
+  var marClient = new MarClient(client)
+
+  marClient.search(
+    [{
+      name: 'Processes',
+      outputs: ['name', 'id']
+    }],
+    {
+      or: [{
+        and: [{
+          name: 'Processes',
+          output: 'name',
+          op: 'EQUALS',
+          value: 'csrss'
+        },
+        {
+          name: 'Processes',
+          output: 'name',
+          op: 'CONTAINS',
+          value: 'exe'
+        }]
+      },
+      {
+        and: [{
+          name: 'Processes',
+          output: 'size',
+          op: 'GREATER_THAN',
+          value: '200',
+          negated: 'true'
+        }]
+      }]
+    },
+    function (searchError, resultContext) {
+      if (resultContext &amp;&amp; resultContext.hasResults) {
+        // Process results
+      } else {
+        // Handle searchError
+      }
+    }
+  )
+})</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">installation</a></li><li><a href="tutorial-samples.html">samples</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
