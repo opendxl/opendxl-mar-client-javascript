@@ -4,8 +4,8 @@
  // messages and send Response messages back to an invoking client.
 
 var common = require('../common')
-var dxl = require('@opendxl/dxl-client')
-var mar = common.requireMarClient()
+var dxl = common.require('@opendxl/dxl-client')
+var mar = common.require('@opendxl/dxl-mar-client')
 var MarClient = mar.MarClient
 var ProjectionConstants = mar.ProjectionConstants
 
