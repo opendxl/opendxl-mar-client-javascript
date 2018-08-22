@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Basic Search Example</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Basic Search Example</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Basic Search Example</h2>
+</header>
+
+<article>
+    <p>This sample executes a <code>McAfee Active Response</code> search for the IP addresses of
+hosts that have an Active Response client installed.</p>
+<h3>Prerequisites</h3><ul>
+<li>The samples configuration step has been completed (see <a href="tutorial-samples.html">Samples</a>).</li>
+<li>A McAfee Active Response (MAR) Service is available on the DXL fabric.</li>
+<li>The JavaScript client has been authorized to perform MAR searches (see
+<a href="https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html">Authorize Client To Perform MAR Search</a>
+in the OpenDXL Python SDK Documentation).</li>
+</ul>
+<h3>Running</h3><p>To run this sample execute the <code>sample/basic/basic-search-example.js</code> script
+as follows:</p>
+<pre class="prettyprint source lang-sh"><code>$ node sample/basic/basic-search-example.js</code></pre><p>The output should appear similar to the following:</p>
+<pre class="prettyprint source"><code>Results:
+    192.168.130.152
+    192.168.130.133</code></pre><h3>Details</h3><p>The majority of the sample code is shown below:</p>
+<pre class="prettyprint source lang-js"><code>// Create the client
+var client = new dxl.Client(config)
+
+// Connect to the fabric, supplying a callback function which is invoked
+// when the connection has been established
+client.connect(function () {
+  // Create the McAfee Active Response (MAR) client
+  var marClient = new MarClient(client)
+
+  // Specify that MAR should include 'HostInfo|ip_address' in the search
+  // results
+  var hostInfoProjection = {}
+  hostInfoProjection[ProjectionConstants.NAME] = 'HostInfo'
+  hostInfoProjection[ProjectionConstants.OUTPUTS] = ['ip_address']
+
+  // Performs the search
+  marClient.search([hostInfoProjection], null,
+    function (searchError, resultContext) {
+      // Loop and display the results
+      if (resultContext && resultContext.hasResults) {
+        resultContext.getResults(
+          function (resultError, searchResult) {
+            // Destroy the client - frees up resources so that the application
+            // stops running
+            client.destroy()
+            if (resultError) {
+              console.log(resultError.message)
+            } else {
+              var items = searchResult.items
+              if (items) {
+                console.log('Results:')
+                items.forEach(function (item) {
+                  console.log('    ' + item.output['HostInfo|ip_address'])
+                })
+              }
+            }
+          },
+          {limit: 10})
+      } else {
+        // Destroy the client - frees up resources so that the application
+        // stops running
+        client.destroy()
+        if (searchError) {
+          console.log(searchError.message)
+        }
+      }
+    }
+  )
+})</code></pre><p>Once a connection is established to the DXL fabric, the callback function
+supplied to the DXL client instance's
+<a href="https://opendxl.github.io/opendxl-client-javascript/jsdoc/Client.html#connect">connect()</a>
+method will be invoked. From within the callback function, a <a href="MarClient.html">MarClient</a>
+instance is created. The MarClient instance will be used to perform searches.</p>
+<p>Next, a search to collect the IP addresses for monitored systems is performed by
+invoking the <a href="MarClient.html#search">search()</a> method of the <a href="MarClient.html">MarClient</a>
+instance.</p>
+<p>On successful execution of the search, the <code>resultContext</code> parameter provided to
+the callback function contains the result of the search attempt, a
+<a href="ResultsContext.html">ResultsContext</a> instance. The first 10 results are retrieved by invoking
+the <a href="ResultsContext.html#getResults">getResults()</a> method of the
+<a href="ResultsContext.html">ResultsContext</a> object.</p>
+<p>On successful receipt of the search results, the <code>searchResult</code> parameter
+provided to the callback function contains the search results. The results are
+iterated and printed to the screen.</p>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">Library Installation</a></li><li><a href="tutorial-samples.html">Samples</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

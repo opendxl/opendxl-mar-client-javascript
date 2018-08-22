@@ -42,10 +42,11 @@
  * Can be rewritten to use `ProjectionConstants` as follows:
  *
  * ```js
- * [{
- *   ProjectionConstants.NAME: 'HostInfo',
- *   ProjectionConstants.OUTPUTS: ['ip_address']
- * }]
+ * var hostIpProjection = {}
+ * hostIpProjection[ProjectionConstants.NAME] = 'HostInfo'
+ * hostIpProjection[ProjectionConstants.OUTPUTS] = ['ip_address']
+ *
+ * var projections = [hostIpProjection]
  * ```
  */
 
@@ -71,7 +72,7 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">installation</a></li><li><a href="tutorial-samples.html">samples</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">Library Installation</a></li><li><a href="tutorial-samples.html">Samples</a></li></ul>
 </nav>
 
 <br class="clear">

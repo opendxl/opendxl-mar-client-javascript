@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Basic Paging Example</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Basic Paging Example</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Basic Paging Example</h2>
+</header>
+
+<article>
+    <p>This sample executes a <code>McAfee Active Response</code> search for the running processes
+on a particular endpoint as specified by its IP address.</p>
+<p>The names of the processes are received in pages and displayed.</p>
+<h3>Prerequisites</h3><ul>
+<li>The samples configuration step has been completed (see <a href="tutorial-samples.html">Samples</a>).</li>
+<li>A McAfee Active Response (MAR) Service is available on the DXL fabric.</li>
+<li>The JavaScript client has been authorized to perform MAR searches (see
+<a href="https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html">Authorize Client To Perform MAR Search</a>
+in the OpenDXL Python SDK Documentation).</li>
+</ul>
+<h3>Setup</h3><p>Update the following line in the sample:</p>
+<pre class="prettyprint source lang-js"><code>var HOST_IP = '&lt;SPECIFY_IP_ADDRESS>'
+</code></pre><p>To specify the IP address of a host to retrieve the process list from. For
+example:</p>
+<pre class="prettyprint source lang-js"><code>var HOST_IP = '192.168.1.1'</code></pre><h3>Running</h3><p>To run this sample execute the <code>sample/basic/basic-paging-example.js</code> script
+as follows:</p>
+<pre class="prettyprint source lang-sh"><code>$ node sample/basic/basic-paging-example.js</code></pre><p>The output should appear similar to the following:</p>
+<pre class="prettyprint source"><code>Page: 1
+    MARService.exe
+    OneDrive.exe
+    RuntimeBroker.exe
+    SearchIndexer.exe
+    SearchUI.exe
+Page: 2
+    ShellExperienceHost.exe
+    SkypeHost.exe
+    System
+    UpdaterUI.exe
+    VGAuthService.exe
+Page: 3
+    WUDFHost.exe
+    WmiApSrv.exe
+    WmiPrvSE.exe
+    WmiPrvSE.exe
+    [System Process]
+...</code></pre><h3>Details</h3><p>The majority of the sample code is shown below:</p>
+<pre class="prettyprint source lang-js"><code>// The size of each page
+var PAGE_SIZE = 5
+
+// The IP address of the host to retrieve the processes for
+var HOST_IP = '&lt;SPECIFY_IP_ADDRESS>'
+
+// Create the client
+var client = new dxl.Client(config)
+
+// Connect to the fabric, supplying a callback function which is invoked
+// when the connection has been established
+client.connect(function () {
+  // Create the McAfee Active Response (MAR) client
+  var marClient = new MarClient(client)
+
+  // Specify that MAR should include 'Processes' in the search results
+  var processesProjection = {}
+  processesProjection[ProjectionConstants.NAME] = 'Processes'
+
+  // Set the search conditions
+  var ipAddressCondition = {}
+  ipAddressCondition[ConditionConstants.COND_NAME] = 'HostInfo'
+  ipAddressCondition[ConditionConstants.COND_OUTPUT] = 'ip_address'
+  ipAddressCondition[ConditionConstants.COND_OP] = OperatorConstants.EQUALS
+  ipAddressCondition[ConditionConstants.COND_VALUE] = HOST_IP
+
+  var firstOrCondition = {}
+  firstOrCondition[ConditionConstants.AND] = [ipAddressCondition]
+
+  var conditions = {}
+  conditions[ConditionConstants.OR] = [firstOrCondition]
+
+  // Start the search
+  marClient.search(
+    [processesProjection],
+    conditions,
+    function (searchError, resultContext) {
+      if (resultContext && resultContext.hasResults) {
+        // Iterate the results of the search in pages
+        var displayPageResults = function (pageNumber) {
+          // Retrieve the next page of results (sort by process name, ascending)
+          resultContext.getResults(
+            function (resultError, searchResult) {
+              if (searchResult) {
+                // Display items in the current page
+                console.log('Page: ' + (pageNumber + 1))
+                var items = searchResult[ResultConstants.ITEMS]
+                if (items) {
+                  items.forEach(function (item) {
+                    console.log('    ' +
+                      item[ResultConstants.ITEM_OUTPUT]['Processes|name'])
+                  })
+                }
+                // If the current page is not last page, invoke the display
+                // results function to display the next page of results.
+                if (((pageNumber * PAGE_SIZE) +
+                    PAGE_SIZE) &lt; resultContext.resultCount) {
+                  displayPageResults(pageNumber + 1)
+                } else {
+                  // The last page of results has been displayed. Destroy the
+                  // client - frees up resources so that the application stops
+                  // running
+                  client.destroy()
+                }
+              } else {
+                // No search results could be found for the current page.
+                // Destroy the client - frees up resources so that the
+                // application stops running.
+                client.destroy()
+                if (resultError) {
+                  console.log(resultError.message)
+                }
+              }
+            },
+            {
+              offset: pageNumber * PAGE_SIZE,
+              limit: PAGE_SIZE,
+              sortBy: 'Processes|name',
+              sortDirection: SortConstants.ASC
+            }
+          )
+        }
+        // Display results for the first page
+        displayPageResults(0)
+      } else {
+        client.destroy()
+        if (searchError) {
+          console.log(searchError.message)
+        }
+      }
+    }
+  )
+})</code></pre><p>Once a connection is established to the DXL fabric, the callback function
+supplied to the DXL client instance's
+<a href="https://opendxl.github.io/opendxl-client-javascript/jsdoc/Client.html#connect">connect()</a>
+method will be invoked. From within the callback function, a <a href="MarClient.html">MarClient</a>
+instance is created. The MarClient instance will be used to perform searches.</p>
+<p>Next, a search to collect process information from a particular system (as
+specified by its IP address) is performed by invoking the
+<a href="MarClient.html#search">search()</a> method of the <a href="MarClient.html">MarClient</a> instance.</p>
+<p>Once the search has completed, the processes that were found on the system are
+displayed in pages sorted by process name in ascending order. The
+<a href="ResultsContext.html#getResults">getResults()</a> method of the
+<a href="ResultsContext.html">ResultsContext</a> object is invoked for each page that is displayed.</p>
+<p>It is also worth noting that in this particular sample <code>constants</code> are used for
+the key names when describing the search <code>projections</code> and <code>conditions</code>.
+<code>Constants</code> are also used when processing the results of the search. While the
+use of <code>constants</code> is completely optional, it avoids hard-coding strings that
+could be mistyped and is especially useful within integrated development
+environments (IDEs) that perform auto-completion.</p>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ConditionConstants.html">ConditionConstants</a></li><li><a href="module-OperatorConstants.html">OperatorConstants</a></li><li><a href="module-ProjectionConstants.html">ProjectionConstants</a></li><li><a href="module-ResultConstants.html">ResultConstants</a></li><li><a href="module-SortConstants.html">SortConstants</a></li></ul><h3>Externals</h3><ul><li><a href="external-DxlClient.html">DxlClient</a></li></ul><h3>Classes</h3><ul><li><a href="MarClient.html">MarClient</a></li><li><a href="ResultsContext.html">ResultsContext</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-installation.html">Library Installation</a></li><li><a href="tutorial-samples.html">Samples</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
