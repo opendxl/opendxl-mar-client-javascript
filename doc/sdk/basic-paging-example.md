@@ -1,21 +1,70 @@
-'use strict'
+This sample executes a `McAfee Active Response` search for the running processes
+on a particular endpoint as specified by its IP address.
 
-// This sample demonstrates how to register a DXL service to receive Request
-// messages and send Response messages back to an invoking client.
+The names of the processes are received in pages and displayed.
 
-var common = require('../common')
-var dxl = common.require('@opendxl/dxl-client')
-var mar = common.require('@opendxl/dxl-mar-client')
-var ConditionConstants = mar.ConditionConstants
-var MarClient = mar.MarClient
-var OperatorConstants = mar.OperatorConstants
-var ProjectionConstants = mar.ProjectionConstants
-var ResultConstants = mar.ResultConstants
-var SortConstants = mar.SortConstants
+### Prerequisites
 
-// Create DXL configuration from file
-var config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
+* The samples configuration step has been completed (see {@tutorial samples}).
+* A McAfee Active Response (MAR) Service is available on the DXL fabric.
+* The JavaScript client has been authorized to perform MAR searches (see
+  [Authorize Client To Perform MAR Search](https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html)
+  in the OpenDXL Python SDK Documentation).
 
+### Setup
+
+Update the following line in the sample:
+
+```js
+var HOST_IP = '<SPECIFY_IP_ADDRESS>'
+
+```
+
+To specify the IP address of a host to retrieve the process list from. For
+example:
+
+```js
+var HOST_IP = '192.168.1.1'
+```
+
+### Running
+
+To run this sample execute the `sample/basic/basic-paging-example.js` script
+as follows:
+
+```sh
+$ node sample/basic/basic-paging-example.js
+```
+
+The output should appear similar to the following:
+
+```
+Page: 1
+    MARService.exe
+    OneDrive.exe
+    RuntimeBroker.exe
+    SearchIndexer.exe
+    SearchUI.exe
+Page: 2
+    ShellExperienceHost.exe
+    SkypeHost.exe
+    System
+    UpdaterUI.exe
+    VGAuthService.exe
+Page: 3
+    WUDFHost.exe
+    WmiApSrv.exe
+    WmiPrvSE.exe
+    WmiPrvSE.exe
+    [System Process]
+...
+```
+
+### Details
+
+The majority of the sample code is shown below:
+
+```js
 // The size of each page
 var PAGE_SIZE = 5
 
@@ -109,3 +158,26 @@ client.connect(function () {
     }
   )
 })
+```
+
+Once a connection is established to the DXL fabric, the callback function
+supplied to the DXL client instance's
+[connect()](https://opendxl.github.io/opendxl-client-javascript/jsdoc/Client.html#connect)
+method will be invoked. From within the callback function, a {@link MarClient}
+instance is created. The MarClient instance will be used to perform searches.
+
+Next, a search to collect process information from a particular system (as
+specified by its IP address) is performed by invoking the
+[search()]{@link MarClient#search} method of the {@link MarClient} instance.
+
+Once the search has completed, the processes that were found on the system are
+displayed in pages sorted by process name in ascending order. The
+[getResults()]{@link ResultsContext#getResults} method of the
+{@link ResultsContext} object is invoked for each page that is displayed.
+
+It is also worth noting that in this particular sample `constants` are used for
+the key names when describing the search `projections` and `conditions`.
+`Constants` are also used when processing the results of the search. While the
+use of `constants` is completely optional, it avoids hard-coding strings that
+could be mistyped and is especially useful within integrated development
+environments (IDEs) that perform auto-completion.

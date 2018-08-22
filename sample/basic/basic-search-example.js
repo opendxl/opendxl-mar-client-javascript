@@ -18,17 +18,24 @@ var client = new dxl.Client(config)
 // Connect to the fabric, supplying a callback function which is invoked
 // when the connection has been established
 client.connect(function () {
+  // Create the McAfee Active Response (MAR) client
   var marClient = new MarClient(client)
 
+  // Specify that MAR should include 'HostInfo|ip_address' in the search
+  // results
   var hostInfoProjection = {}
   hostInfoProjection[ProjectionConstants.NAME] = 'HostInfo'
   hostInfoProjection[ProjectionConstants.OUTPUTS] = ['ip_address']
 
+  // Performs the search
   marClient.search([hostInfoProjection], null,
     function (searchError, resultContext) {
+      // Loop and display the results
       if (resultContext && resultContext.hasResults) {
         resultContext.getResults(
           function (resultError, searchResult) {
+            // Destroy the client - frees up resources so that the application
+            // stops running
             client.destroy()
             if (resultError) {
               console.log(resultError.message)
@@ -44,6 +51,8 @@ client.connect(function () {
           },
           {limit: 10})
       } else {
+        // Destroy the client - frees up resources so that the application
+        // stops running
         client.destroy()
         if (searchError) {
           console.log(searchError.message)

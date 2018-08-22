@@ -1,0 +1,19 @@
+{
+  "overview": {
+    "title": "Overview"
+  },
+  "installation": {
+    "title": "Library Installation"
+  },
+  "samples": {
+    "title": "Samples",
+    "children": {
+      "basic-search-example": {
+        "title": "Basic Search Example"
+      },
+      "basic-paging-example": {
+        "title": "Basic Paging Example"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 The MAR DXL JavaScript client distribution contains a configuration file
-(`dxlclient.config`) located in the ``sample`` sub-directory that must be
+(`dxlclient.config`) located in the `sample` sub-directory that must be
 populated in order for the samples to connect to the DXL fabric.
 
 The steps to populate this configuration file are the same as those documented

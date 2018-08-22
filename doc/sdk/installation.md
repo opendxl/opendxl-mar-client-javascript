@@ -9,7 +9,7 @@
 * McAfee Active Response Server installed and available on DXL fabric
   * <http://www.mcafee.com/us/products/endpoint-threat-defense-response.aspx>
 
-* OpenDXL Javascript Client has permission to perform MAR searches
+* OpenDXL JavaScript Client has permission to perform MAR searches
   * <https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html>
 
 * Node.js 4.0 or higher installed.
