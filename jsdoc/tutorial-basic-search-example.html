@@ -58,39 +58,42 @@ client.connect(function () {
   hostInfoProjection[ProjectionConstants.NAME] = 'HostInfo'
   hostInfoProjection[ProjectionConstants.OUTPUTS] = ['ip_address']
 
-  // Performs the search
-  marClient.search([hostInfoProjection], null,
-    function (searchError, resultContext) {
-      // Loop and display the results
-      if (resultContext && resultContext.hasResults) {
-        resultContext.getResults(
-          function (resultError, searchResult) {
-            // Destroy the client - frees up resources so that the application
-            // stops running
-            client.destroy()
-            if (resultError) {
-              console.log(resultError.message)
-            } else {
-              var items = searchResult.items
-              if (items) {
-                console.log('Results:')
-                items.forEach(function (item) {
-                  console.log('    ' + item.output['HostInfo|ip_address'])
-                })
-              }
-            }
-          },
-          {limit: 10})
-      } else {
-        // Destroy the client - frees up resources so that the application
-        // stops running
-        client.destroy()
-        if (searchError) {
-          console.log(searchError.message)
-        }
+  // Perform the search
+  marClient.search([hostInfoProjection], null, processSearchResult)
+
+  // Process the search result
+  function processSearchResult (searchError, resultContext) {
+    if (resultContext && resultContext.hasResults) {
+      // Get up to the first 10 items from the search result
+      resultContext.getResults(processResultSet, {limit: 10})
+    } else {
+      // Destroy the client - frees up resources so that the application
+      // stops running
+      client.destroy()
+      if (searchError) {
+        console.log(searchError.message)
       }
     }
-  )
+  }
+
+  // Process the set of result items retrieved from the search
+  function processResultSet (resultError, searchResult) {
+    // Destroy the client - frees up resources so that the application
+    // stops running
+    client.destroy()
+    if (resultError) {
+      console.log(resultError.message)
+    } else {
+      // Loop and display the results
+      var items = searchResult.items
+      if (items) {
+        console.log('Results:')
+        items.forEach(function (item) {
+          console.log('    ' + item.output['HostInfo|ip_address'])
+        })
+      }
+    }
+  }
 })</code></pre><p>Once a connection is established to the DXL fabric, the callback function
 supplied to the DXL client instance's
 <a href="https://opendxl.github.io/opendxl-client-javascript/jsdoc/Client.html#connect">connect()</a>
@@ -100,13 +103,13 @@ instance is created. The MarClient instance will be used to perform searches.</p
 invoking the <a href="MarClient.html#search">search()</a> method of the <a href="MarClient.html">MarClient</a>
 instance.</p>
 <p>On successful execution of the search, the <code>resultContext</code> parameter provided to
-the callback function contains the result of the search attempt, a
+the <code>processSearchResult</code> function contains the result of the search attempt, a
 <a href="ResultsContext.html">ResultsContext</a> instance. The first 10 results are retrieved by invoking
 the <a href="ResultsContext.html#getResults">getResults()</a> method of the
 <a href="ResultsContext.html">ResultsContext</a> object.</p>
 <p>On successful receipt of the search results, the <code>searchResult</code> parameter
-provided to the callback function contains the search results. The results are
-iterated and printed to the screen.</p>
+provided to the <code>processResultSet</code> function contains the search results. The
+results are iterated and printed to the screen.</p>
 </article>
 
 </section>
