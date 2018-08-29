@@ -27,37 +27,40 @@ client.connect(function () {
   hostInfoProjection[ProjectionConstants.NAME] = 'HostInfo'
   hostInfoProjection[ProjectionConstants.OUTPUTS] = ['ip_address']
 
-  // Performs the search
-  marClient.search([hostInfoProjection], null,
-    function (searchError, resultContext) {
-      // Loop and display the results
-      if (resultContext && resultContext.hasResults) {
-        resultContext.getResults(
-          function (resultError, searchResult) {
-            // Destroy the client - frees up resources so that the application
-            // stops running
-            client.destroy()
-            if (resultError) {
-              console.log(resultError.message)
-            } else {
-              var items = searchResult.items
-              if (items) {
-                console.log('Results:')
-                items.forEach(function (item) {
-                  console.log('    ' + item.output['HostInfo|ip_address'])
-                })
-              }
-            }
-          },
-          {limit: 10})
-      } else {
-        // Destroy the client - frees up resources so that the application
-        // stops running
-        client.destroy()
-        if (searchError) {
-          console.log(searchError.message)
-        }
+  // Perform the search
+  marClient.search([hostInfoProjection], null, processSearchResult)
+
+  // Process the search result
+  function processSearchResult (searchError, resultContext) {
+    if (resultContext && resultContext.hasResults) {
+      // Get up to the first 10 items from the search result
+      resultContext.getResults(processResultSet, {limit: 10})
+    } else {
+      // Destroy the client - frees up resources so that the application
+      // stops running
+      client.destroy()
+      if (searchError) {
+        console.log(searchError.message)
       }
     }
-  )
+  }
+
+  // Process the set of result items retrieved from the search
+  function processResultSet (resultError, searchResult) {
+    // Destroy the client - frees up resources so that the application
+    // stops running
+    client.destroy()
+    if (resultError) {
+      console.log(resultError.message)
+    } else {
+      // Loop and display the results
+      var items = searchResult.items
+      if (items) {
+        console.log('Results:')
+        items.forEach(function (item) {
+          console.log('    ' + item.output['HostInfo|ip_address'])
+        })
+      }
+    }
+  }
 })

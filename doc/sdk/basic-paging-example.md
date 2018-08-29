@@ -98,65 +98,70 @@ client.connect(function () {
   conditions[ConditionConstants.OR] = [firstOrCondition]
 
   // Start the search
-  marClient.search(
-    [processesProjection],
-    conditions,
-    function (searchError, resultContext) {
-      if (resultContext && resultContext.hasResults) {
-        // Iterate the results of the search in pages
-        var displayPageResults = function (pageNumber) {
-          // Retrieve the next page of results (sort by process name, ascending)
-          resultContext.getResults(
-            function (resultError, searchResult) {
-              if (searchResult) {
-                // Display items in the current page
-                console.log('Page: ' + (pageNumber + 1))
-                var items = searchResult[ResultConstants.ITEMS]
-                if (items) {
-                  items.forEach(function (item) {
-                    console.log('    ' +
-                      item[ResultConstants.ITEM_OUTPUT]['Processes|name'])
-                  })
-                }
-                // If the current page is not last page, invoke the display
-                // results function to display the next page of results.
-                if (((pageNumber * PAGE_SIZE) +
-                    PAGE_SIZE) < resultContext.resultCount) {
-                  displayPageResults(pageNumber + 1)
-                } else {
-                  // The last page of results has been displayed. Destroy the
-                  // client - frees up resources so that the application stops
-                  // running
-                  client.destroy()
-                }
-              } else {
-                // No search results could be found for the current page.
-                // Destroy the client - frees up resources so that the
-                // application stops running.
-                client.destroy()
-                if (resultError) {
-                  console.log(resultError.message)
-                }
-              }
-            },
-            {
-              offset: pageNumber * PAGE_SIZE,
-              limit: PAGE_SIZE,
-              sortBy: 'Processes|name',
-              sortDirection: SortConstants.ASC
-            }
-          )
-        }
-        // Display results for the first page
-        displayPageResults(0)
-      } else {
-        client.destroy()
-        if (searchError) {
-          console.log(searchError.message)
-        }
+  marClient.search([processesProjection], conditions, processSearchResult)
+
+  // Process the set of result items retrieved from the search
+  function processSearchResult (searchError, resultContext) {
+    if (resultContext && resultContext.hasResults) {
+      // Iterate the results of the search in pages
+      processResultPage(resultContext, 0)
+    } else {
+      client.destroy()
+      if (searchError) {
+        console.log(searchError.message)
       }
     }
-  )
+  }
+
+  // Retrieve the next page of results (sort by process name, ascending)
+  function processResultPage (resultContext, pageNumber) {
+    resultContext.getResults(
+      function (resultError, searchResult) {
+        displayResultPage(resultContext, pageNumber, resultError, searchResult)
+      },
+      {
+        offset: pageNumber * PAGE_SIZE,
+        limit: PAGE_SIZE,
+        sortBy: 'Processes|name',
+        sortDirection: SortConstants.ASC
+      }
+    )
+  }
+
+  // Display items for the current page. If the current page is not the last
+  // one, retrieve the next page of results.
+  function displayResultPage (resultContext, pageNumber,
+                              resultError, searchResult) {
+    if (searchResult) {
+      // Display items in the current page
+      console.log('Page: ' + (pageNumber + 1))
+      var items = searchResult[ResultConstants.ITEMS]
+      if (items) {
+        items.forEach(function (item) {
+          console.log('    ' +
+            item[ResultConstants.ITEM_OUTPUT]['Processes|name'])
+        })
+      }
+      // If the current page is not the last one, invoke the display results
+      // function to display the next page of results.
+      if (((pageNumber * PAGE_SIZE) + PAGE_SIZE) < resultContext.resultCount) {
+        processResultPage(resultContext, pageNumber + 1)
+      } else {
+        // The last page of results has been displayed. Destroy the
+        // client - frees up resources so that the application stops
+        // running
+        client.destroy()
+      }
+    } else {
+      // No search results could be found for the current page.
+      // Destroy the client - frees up resources so that the
+      // application stops running.
+      client.destroy()
+      if (resultError) {
+        console.log(resultError.message)
+      }
+    }
+  }
 })
 ```
 
